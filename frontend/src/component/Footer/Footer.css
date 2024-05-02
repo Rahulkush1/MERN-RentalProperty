@@ -1,0 +1,12 @@
+.footer_component {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the app takes up at least the full viewport height */
+  }
+  .cities-name{
+    cursor: pointer !important;
+    color: grey !important;
+  } 
+  .cities-name > a{
+    color: gray !important;
+  }

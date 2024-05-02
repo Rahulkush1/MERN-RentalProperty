@@ -1,0 +1,66 @@
+.sortDiv{
+    width: 100%;
+}
+.main-property{
+	/* margin-left: 1vmax; */
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.sortDiv > div > div > button {
+	padding: 2px 15px;
+	border: none;
+	margin-bottom: 5%;
+}
+.activeGrid {
+	background-color: var(--blue);
+	color: white;
+	transition: all 0.5s;
+	transform: scale(1.01);
+	/* border-radius: 10px; */
+}
+.activeList {
+	background-color: var(--blue);
+	color: white;
+	transition: all 0.5s;
+	transform: scale(1.01);
+	/* border-radius: 10px; */
+}
+.scrollable{
+	height: 80rem !important;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+}
+.no-data-img{
+	width: 30%;
+}
+.mobile-filter{
+	display: none;
+}
+.mobile-view{
+	display: none;
+}
+.css-zf0iqh{
+	min-height: 0 !important;
+}
+
+@media screen and (max-width: 992px) {
+	.mobile-filter{
+		display: block !important;
+	}
+	.main_filter{
+		display: none;
+	}
+	.website-view{
+		display: none !important;
+	}
+}
+@media screen and (min-width: 100px) and (max-width: 992px) {
+    .property-card{
+        width: 20vmax !important;
+        /* height: 14rem !important; */
+    }
+	.mobile-filter{
+		display: block !important;
+	}
+}

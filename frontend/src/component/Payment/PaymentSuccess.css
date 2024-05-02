@@ -1,0 +1,70 @@
+/* body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+  } */
+  
+  .success-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  }
+  
+  .success-container {
+    text-align: center;
+  }
+  
+  .success-icon {
+    font-size: 3vmax;
+    color: #27ae60;
+    animation: slideUp 0.5s ease forwards;
+  }
+  
+  .success-message {
+    margin-top: 20px;
+    color: #333;
+    font-size: 1.5vmax;
+    font-weight: bold;
+    animation: slideUp 0.5s ease forwards;
+  }
+  .bookingSuccess > a {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    border: none;
+    padding: 0.8vmax 2vmax;
+    cursor: pointer;
+    font: 400 1vmax "Roboto";
+    text-decoration: none;
+    margin: 1.5vmax;
+  }
+  
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+/*   
+  
+  @media screen and (max-width: 600px) {
+    .orderSuccess > a {
+      padding: 3vw 6vw;
+      font: 400 4vw "Roboto";
+      margin: 2vmax;
+    }
+  
+    .orderSuccess > svg {
+      font-size: 20vw;
+    }
+    .orderSuccess > p {
+      margin: 2vmax;
+      font-size: 5vw;
+    }
+  } */

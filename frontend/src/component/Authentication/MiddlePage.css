@@ -1,0 +1,49 @@
+
+.owner-btn{
+    padding: 0.5vmax 5vmax;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+    background: #DD4B39;
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border: none;
+    border-radius: 2px;
+  cursor: pointer;
+
+}
+.broker-btn{
+    padding: 0.5vmax 5vmax;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+    background: #32508E;
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border: none;
+    border-radius: 2px;
+  cursor: pointer;
+
+}
+.buyer-btn{
+    padding: 0.5vmax 5vmax;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+    background: #55ACEE;
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border: none;
+    border-radius: 2px;
+  cursor: pointer;
+
+}
+
+.auth-container{
+  position: absolute;
+  bottom: 0%;
+  top: -1%;
+  width: 100%;
+  background-color: #67C6E3;
+  z-index: 1000;
+}

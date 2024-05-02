@@ -1,0 +1,24 @@
+.navbar{
+	background-color: #362FD9 !important;
+	z-index: -1;
+}
+.nav-link-ltr:after {
+	display:block;
+	content: '';
+	width: inherit;
+	border-bottom: solid 3px white;  
+	transform: scaleX(0);  
+	transition: transform 250ms ease-in-out;
+  }
+  
+.nav-link-ltr:hover:after { transform: scaleX(1); }
+
+
+@media screen and (min-width: 100px) and (max-width: 960px) {
+	.navbar-nav{
+		align-items: center !important;
+	}
+	.navbar-nav > button {
+		width: 50% !important;
+	}
+}

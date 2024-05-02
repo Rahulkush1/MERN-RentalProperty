@@ -1,0 +1,14 @@
+
+.circleCard{
+    width: 10vmax !important;
+}
+.circle p {
+    font-size: 1vmax !important;
+}
+
+@media screen and (max-width: 768px) {
+    .circleCard{
+        width: 20vmax !important;
+    }
+    
+}

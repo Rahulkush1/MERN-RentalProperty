@@ -1,0 +1,61 @@
+.userDial{
+    position: fixed !important;
+    z-index: 100000 !important;
+    right: 6%;
+	top: 10%;
+
+}
+.speedDialIcon {
+	width: 3vmax;
+	height: 3vmax;
+	border-radius: 50%;
+}
+.backdrop {
+	z-index: 12;
+}
+.speedDialbox {
+	position: fixed ;
+	z-index: 1;
+}
+.css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
+	background-color: transparent !important;
+	width: 3vmax !important;
+	height: 3vmax !important;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+	.css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
+		width: 5vmax !important;
+		height: 5vmax !important;
+	}
+	.speedDialIcon {
+		width: 5vmax;
+		height: 5vmax;
+		border-radius: 50%;
+	}
+	.userDial{
+		position: fixed !important;
+		z-index: 100000 !important;
+		right: 10%;
+		top: 10%;
+	
+	}
+}
+@media screen and (max-width: 768px) {
+	.css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
+		width: 4vmax !important;
+		height: 4vmax !important;
+	}
+	.speedDialIcon {
+		width: 4vmax;
+		height: 4vmax;
+		border-radius: 50%;
+	}
+	.userDial{
+		position: fixed !important;
+		z-index: 100000 !important;
+		right: 15%;
+		top: 10%;
+	
+	}
+}
