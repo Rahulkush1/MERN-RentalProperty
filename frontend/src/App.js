@@ -10,7 +10,6 @@ import Login from "./component/Authentication/Login";
 import store from "./store";
 import {
   clearErrors,
-  loadUser,
   removeCredentials,
   setCredentials,
   setUserError,
@@ -47,6 +46,7 @@ import Dashboard from "./component/SubAdmin/Dashboard/Dashboard";
 import AdminProperty from "./component/SubAdmin/Property/Property"
 import NewProperty from "./component/SubAdmin/Property/NewProperty";
 import MultiStep from 'react-multistep'
+import { loadUser } from "./Action/userAction";
 
 export default function App() {
   AOS.init({
@@ -76,6 +76,7 @@ export default function App() {
     if (error) {
       dispatch(removeCredentials(error));
     }
+    store.dispatch(loadUser())
   }, [dispatch, data, data1, error]);
 
   const stripePromise = loadStripe(

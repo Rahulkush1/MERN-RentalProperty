@@ -141,7 +141,7 @@ const PropertyDetails = () => {
                             <>
                               <SwiperSlide key={index}>
                                 <img
-                                  src={data.url}
+                                  src={data?.url}
                                   alt=""
                                   className=" img-fluid property_img"
                                   style={{ width: "100%" }}
@@ -157,14 +157,14 @@ const PropertyDetails = () => {
                   <div className=" property-images">
                     <img
                       src={
-                        property && property.images && property.images[0].url
+                        property && property.images && property.images[0]?.url
                       }
                       alt=""
                       className="img-fluid mx-2  my-2 property_img"
                     />
                     <img
                       src={
-                        property && property.images && property.images[1].url
+                        property && property.images && property.images[1]?.url
                       }
                       alt=""
                       className="img-fluid mx-2 my-2  property_img"
@@ -325,7 +325,7 @@ const PropertyDetails = () => {
                 <div className="posted_by  grey my-3">
                   <div className="">
                     <h4>Posted By</h4>
-                    <p className="posted">{property && property.user.role.toLowerCase()}</p>
+                    <p className="posted">{property && property.user?.role?.toLowerCase()}</p>
                   </div>
                 </div>
                 <div className="text-dark text-end">

@@ -118,8 +118,8 @@ const loginUser = asyncHandler(async (req, res) => {
   );
 
   const options = {
+    expire: new Date(Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 1000),
     httpOnly: true,
-    secure: true,
   };
 
   return res

@@ -2,9 +2,8 @@ import React from "react";
 import Button from "@mui/material/Button";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../Slice/userSlice";
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { logoutUser } from "../../Action/userAction";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -43,8 +42,7 @@ function Navbar() {
   //   }
   // }, [dispatch, data, data1]);
   const userlogout = () => {
-    
-    dispatch(logout());
+    dispatch(logoutUser());
   }
 
   return (

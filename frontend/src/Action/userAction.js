@@ -41,6 +41,7 @@ export const registerUser = createAsyncThunk(
           headers: {
             'Content-Type': 'application/json',
           },
+          withCredentials: true,
         }
         const { data } = await axios.post(
             `${BASE_URL}users/login`,
@@ -83,4 +84,45 @@ export const registerUser = createAsyncThunk(
       }
     }
   })
+
+export const loadUser = createAsyncThunk('user/me', async (id, { rejectWithValue }) => { 
+  try {
+    const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+    }
+    
+    const { data } = await axios.get('/api/v1/users/me', config);
+    return data.data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message)
+    }
+    else {
+      return rejectWithValue(error.message)
+    }
+  }
+})
+
+export const  logoutUser = createAsyncThunk('user/logout', async (id, { rejectWithValues }) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    }
+    const { data } = await axios.post('/api/v1/users/logout', config);
+    return data.data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValues(error.response.data.message)
+    }
+    else {
+      return rejectWithValues(error.message)
+    }
+  }
+})
 

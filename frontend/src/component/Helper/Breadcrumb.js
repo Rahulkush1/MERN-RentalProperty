@@ -20,6 +20,9 @@ export default function Breadcrumb() {
   const previousURL = document.referrer;
   console.log(previousURL);
   const breadcrumbLinks = segment.map((segment, i) => {
+    if (segment === "property") {
+      segment = 'properties'
+    }
     url += `/${segment}`;
     return (
       <Link
