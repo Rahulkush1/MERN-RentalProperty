@@ -77,11 +77,11 @@ export const fetchRecomendendProperty = createAsyncThunk(
       },
     };
     try {
-      const resp = await axios.get(
-        `${BASE_URL}/properties?recomended_property=true&user_city=${city}`,
+      const {data} = await axios.get(
+        `${BASE_URL}property/feature?city=${city}`,
         config
       );
-      return resp.data.data;
+      return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

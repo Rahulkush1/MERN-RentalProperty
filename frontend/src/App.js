@@ -67,9 +67,6 @@ export default function App() {
   });
 
   useEffect(() => {
-    if (data) {
-      dispatch(setCredentials(data));
-    }
     if (data1) {
       dispatch(setProperty(data1));
     }
