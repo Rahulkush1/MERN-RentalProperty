@@ -170,7 +170,7 @@ function Home() {
                     return (
                       <div
                         className="col-lg-3 col-md-4 col-sm-6 col-6 gy-5"
-                        key={current.attributes.id}
+                        key={current.state_codeid}
                       >
                         <PropCard data={current} />
                       </div>

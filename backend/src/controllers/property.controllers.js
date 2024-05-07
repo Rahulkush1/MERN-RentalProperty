@@ -73,7 +73,6 @@ const getAllProperties = asyncHandler(async (req, res) => {
   if (!property) {
     throw new ApiError(404, "Property not found");
   }
-  console.log(property);
 
   res
     .status(200)
@@ -85,6 +84,21 @@ const getAllProperties = asyncHandler(async (req, res) => {
       )
     );
 });
+
+const featureProperties = asyncHandler(async (req, res) => {
+
+  if (!req.body) {
+    throw new ApiError(400, "Please provide some filters");
+  }
+
+  const  properties = await Property.find({ 'address.city': req.body.city })
+  if (!properties) {
+    throw new ApiError(404, "Property not found");
+  }
+
+  res.status(200).json(new ApiResponse(200,properties, "Property fetched"));
+  
+})
 
 const getPropertyDetails = asyncHandler(async (req, res) => {
   //   const property = await Property.findById(req.params.id);
@@ -312,4 +326,5 @@ export {
   updatePropertyDetails,
   updatePropertyImages,
   deleteProperty,
+  featureProperties
 };

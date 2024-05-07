@@ -5,7 +5,8 @@ import {
   getPropertyDetails,
   updatePropertyDetails,
     updatePropertyImages,
-  deleteProperty
+  deleteProperty,
+  featureProperties
 } from "../controllers/property.controllers.js";
 import { verifyJwt, authorizeRoles } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -25,5 +26,6 @@ router.route("/all").get(getAllProperties);
 router.route("/p/:id").put(verifyJwt, authorizeRoles('OWNER',"BROKER"), updatePropertyDetails);
 router.route("/p/:id").patch(verifyJwt, authorizeRoles('OWNER'), upload.single('image'), updatePropertyImages);
 router.route("/p/:id").delete(verifyJwt, authorizeRoles('OWNER'), deleteProperty);
+router.route("/feature").get(featureProperties)
 
 export default router;
