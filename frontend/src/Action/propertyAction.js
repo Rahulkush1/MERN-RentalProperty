@@ -55,6 +55,7 @@ export const fetchPropertyDetails = createAsyncThunk(
         `${BASE_URL}property/p/${id}`,
         config
       );
+      console.log(data.data)
       return data.data;
     } catch (error) {
       console.log(error);
@@ -94,18 +95,17 @@ export const fetchRecomendendProperty = createAsyncThunk(
 
 export const CreatePropertyReview = createAsyncThunk(
   "create/property/review",
-  async (reviews, { rejectWithValue }) => {
-    const {id, review, rating} = reviews
+  async ({rating, comment, property_id}, { rejectWithValue }) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        auth_token: localStorage.getItem("userToken"),
       },
+      withCredentials: true,
     };
     try {
       const { data } = await axios.post(
-        `${BASE_URL}/reviews?property_id=${id}`,
-        {review: {review, rating}},
+        `${BASE_URL}review/create`,
+        {rating, comment, property_id},
         config
       );
       return data;

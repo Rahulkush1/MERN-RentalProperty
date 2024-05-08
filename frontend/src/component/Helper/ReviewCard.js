@@ -14,7 +14,7 @@ const ReviewCard = ({ review }) => {
             className="img-fluid review-profile-img me-1"
             alt="profile"
           />{" "}
-          {review.user}
+          {review.name}
         </b>
         <p class="card-text ms-5 ">
           <Stack spacing={1}>
@@ -27,7 +27,7 @@ const ReviewCard = ({ review }) => {
             />
           </Stack>
           <p className="grey my-2">
-            {review.review}
+            {review.comment}
           </p>
         </p>
       </div>
