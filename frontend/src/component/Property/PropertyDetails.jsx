@@ -47,16 +47,16 @@ const PropertyDetails = () => {
   const { booking } = useSelector((state) => state.booking);
 
   const [reviews, setReviews] = useState({
-    id: id,
+    property_id: id,
   });
   const HandleReview = (e) => {
     setReviews({ ...reviews, [e.target.name]: e.target.value });
   };
-
+  const {rating, comment, property_id} = reviews
   const SubmitReview = async (e) => {
     e.preventDefault();
     if (userInfo && isAuthenticated) {
-      dispatch(CreatePropertyReview(reviews));
+      dispatch(CreatePropertyReview({rating, comment, property_id}));
     } else {
       toast.error("Please Login to review property", {
         position: "top-center",
@@ -70,10 +70,13 @@ const PropertyDetails = () => {
       });
     }
     dispatch(fetchPropertyDetails(id));
-    setReviews({ ...reviews, rating: 0, review: "" });
+    setReviews({property_id: id});
   };
   useEffect(() => {
     dispatch(fetchPropertyDetails(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
 
     if (success) {
       toast.success("Schedule Successfully", {
@@ -100,7 +103,7 @@ const PropertyDetails = () => {
       });
     }
     dispatch(clearErrors());
-  }, [dispatch, id, toast, success, error, isAuthenticated]);
+  }, [dispatch, toast, success, error, isAuthenticated]);
 
   useEffect(() => {
     dispatch(getAppointment(id));
@@ -581,8 +584,8 @@ const PropertyDetails = () => {
                     <div className="mb-3">
                       <textarea
                         rows="5"
-                        name="review"
-                        value={reviews.review}
+                        name="comment"
+                        value={reviews.comment}
                         placeholder="Give Review.."
                         className="form-control p-3"
                         onChange={HandleReview}
@@ -600,12 +603,10 @@ const PropertyDetails = () => {
 
             {property &&
               property.reviews &&
-              property.reviews.data &&
-              property.reviews.data.map((review) => {
-                console.log(review);
+              property.reviews.map((review) => {
                 return (
                   <div key={review.id}>
-                    <ReviewCard review={review.attributes} />
+                    <ReviewCard review={review} />
                   </div>
                 );
               })}
