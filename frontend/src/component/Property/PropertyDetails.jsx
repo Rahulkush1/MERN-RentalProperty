@@ -38,6 +38,7 @@ import NoImage from "../Images/NoImage.png";
 
 const PropertyDetails = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const { appointment, success, error } = useSelector(
     (state) => state.appointment
@@ -52,11 +53,11 @@ const PropertyDetails = () => {
   const HandleReview = (e) => {
     setReviews({ ...reviews, [e.target.name]: e.target.value });
   };
-  const {rating, comment, property_id} = reviews
+  const { rating, comment, property_id } = reviews;
   const SubmitReview = async (e) => {
     e.preventDefault();
     if (userInfo && isAuthenticated) {
-      dispatch(CreatePropertyReview({rating, comment, property_id}));
+      dispatch(CreatePropertyReview({ rating, comment, property_id }));
     } else {
       toast.error("Please Login to review property", {
         position: "top-center",
@@ -70,14 +71,35 @@ const PropertyDetails = () => {
       });
     }
     dispatch(fetchPropertyDetails(id));
-    setReviews({property_id: id});
+    setReviews({ property_id: id });
   };
+
+  const CheckUserLogin = (e) => {
+    console.log(e.target.dataset);
+    if (!isAuthenticated || !userInfo) {
+      e.target.dataset.bsTarget = "";
+      e.target.dataset.bsToggle = "";
+      e.target.dataset.bsWhatever = "";
+
+      toast.error("Please Login to schedule visit", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      navigate("/login");
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchPropertyDetails(id));
   }, [dispatch, id]);
 
   useEffect(() => {
-
     if (success) {
       toast.success("Schedule Successfully", {
         position: "top-center",
@@ -328,7 +350,9 @@ const PropertyDetails = () => {
                 <div className="posted_by  grey my-3">
                   <div className="">
                     <h4>Posted By</h4>
-                    <p className="posted">{property && property.user?.role?.toLowerCase()}</p>
+                    <p className="posted">
+                      {property && property.user?.role?.toLowerCase()}
+                    </p>
                   </div>
                 </div>
                 <div className="text-dark text-end">
@@ -611,6 +635,7 @@ const PropertyDetails = () => {
                 );
               })}
           </div>
+          {userInfo && "dfghjkjdsghjuiytrdfghjuytrfd"}
           {userInfo && <AppointmentForm data={userInfo} id={id} />}
         </div>
       )}

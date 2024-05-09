@@ -167,13 +167,19 @@ const logoutUser = asyncHandler(async (req, res) => {
 const current_user = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id).select(
     "-password -refresh_token"
-  );
+  )
   if (!user) {
     throw new ApiError(500, "Somthing went wrong while fetching user");
   }
+
+  //adding additional fields for user
+  const serilizedUser = {
+    ...user.toObject(), // Convert Mongoose document to plain JavaScript object
+    full_name: user.first_name + " " + user.last_name
+  }
   return res
     .status(200)
-    .json(new ApiResponse(200, user, "User fetched successfully"));
+    .json(new ApiResponse(200, serilizedUser, "User fetched successfully"));
 });
 
 const verify_account = asyncHandler(async (req, res) => {

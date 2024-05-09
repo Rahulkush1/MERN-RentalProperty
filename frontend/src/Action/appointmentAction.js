@@ -9,12 +9,12 @@ export const createAppointment = createAsyncThunk(
       const config = {
         headers: {
           Content_type: "application/json",
-          auth_token: localStorage.getItem("userToken"),
         },
+        withCredentials: true,
       };
 
       const {data} = await axios.post(
-        `${BASE_URL}/users/appointments`,
+        `${BASE_URL}appointment/create`,
         { appointment },
         config
       );
