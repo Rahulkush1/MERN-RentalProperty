@@ -8,7 +8,7 @@ import {
 } from "../Action/userAction";
 
 const initialState = {
-  userInfo: {},
+  userInfo: null,
   loading: false,
   userToken: null,
   error: null,
@@ -96,6 +96,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = payload;
         state.isAuthenticated = false;
+        state.userInfo = null;
       })
       .addCase(logoutUser.pending, (state, { payload }) => {
         state.loading = true;
