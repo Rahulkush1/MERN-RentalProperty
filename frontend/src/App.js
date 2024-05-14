@@ -47,6 +47,7 @@ import AdminProperty from "./component/SubAdmin/Property/Property"
 import NewProperty from "./component/SubAdmin/Property/NewProperty";
 import MultiStep from 'react-multistep'
 import { loadUser } from "./Action/userAction";
+import axios from "axios";
 
 export default function App() {
   AOS.init({
@@ -59,37 +60,28 @@ export default function App() {
   const { userInfo, isAuthenticated, loading } = useSelector(
     (state) => state.user
   );
-  // const { data, error, isFetching } = useGetUserDetailsQuery("userDetails", {
-  //   pollingInterval: 9000000,
-  // });
+
   const { data1, isloading } = useGetPropertiesQuery("properties", {
     pollingInterval: 9000000,
   });
+
 
   useEffect(() => {
     if (data1) {
       dispatch(setProperty(data1));
     }
-    // if (error) {
-    //   dispatch(removeCredentials(error));
-    // }
     store.dispatch(loadUser())
   }, [dispatch, data1]);
 
-  const stripePromise = loadStripe(
-    "pk_test_51O2t3FSH6OcOxuhnnJDGpo3CDg2zuqJm5RC21EdPFwcy2ZJdlSfANKaCCSYJYZ4hSRMr6HnWU3H7iLznjHiIaAQS00JxvDUZvk"
-  );
 
-  const options = {
-    clientSecret:
-      "pi_3OzIY7SH6OcOxuhn1JWHGSe4_secret_SPwACDx6XXvHLAuCjktCvqTZ4",
-  };
+
+
   return (
     <div className="app">
       <BrowserRouter>
         <div className="content">
           <Navbar />
-          {isAuthenticated && <UserDial user={userInfo} options={options} />}
+          {isAuthenticated && <UserDial user={userInfo}  />}
 
           <Routes>
             <Route path="/" element={<Home />} />
@@ -129,7 +121,7 @@ export default function App() {
               }
             />
             <Route
-              path="properties/:id/confirm/booking/:amount"
+              path="property/:id/confirm/booking/:amount"
               element={
                 <ProtectedRoute>
                   <ConfirmBooking />
@@ -137,7 +129,7 @@ export default function App() {
               }
             />
             <Route
-              path="properties/:id/payment/process/"
+              path="property/:id/payment/process/"
               element={
                 <ProtectedRoute>
                   <Payment />

@@ -16,20 +16,20 @@ const ConfirmBooking = () => {
   const { property, loading } = useSelector((state) => state.properties);
   const navigate = useNavigate();
 
-  const tax = amount * 0.18;
+  const charge = amount * 0.18;
 
-  const totalPrice = Number(amount) + Number(tax);
+  const totalPrice = Number(amount) + Number(charge);
 
   const proceedToPayment = () => {
     const data = {
       amount,
-      tax,
+      charge,
       totalPrice,
     };
 
     sessionStorage.setItem("bookingInfo", JSON.stringify(data));
 
-    navigate(`/properties/${id}/payment/process`);
+    navigate(`/property/${id}/payment/process`);
   };
 
   useEffect(() => {
@@ -63,13 +63,13 @@ const ConfirmBooking = () => {
                 </div>
                 <div className="row">
                   {property &&
-                    property.avatar &&
-                    property.avatar.map((url, index) => {
+                    property.images &&
+                    property.images.map((data, index) => {
                       if (index < 4) {
                         return (
                           <div className="col-lg-3" key={index}>
                             <img
-                              src={`http://localhost:5000/${url}`}
+                              src={data.url}
                               alt=""
                               className="img-fluid mb-3  property_img"
                               width={200}
@@ -120,8 +120,8 @@ const ConfirmBooking = () => {
                 <span>₹{amount}</span>
               </div>
               <div>
-                <p>GST:</p>
-                <span>₹{tax}</span>
+                <p>Booking Charge:</p>
+                <span>₹{charge}</span>
               </div>
             </div>
 

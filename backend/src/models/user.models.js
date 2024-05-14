@@ -46,6 +46,9 @@ const userSchema = new Schema({
         enum: ["ADMIN", "OWNER", "BROKER", "USER"],
         default: "USER",
     },
+    customer: {
+        type: String,
+    },
     resetPasswordToken: String,
 	resetPasswordExpire: Date,
     

@@ -120,6 +120,49 @@ const getAppointmentDetails = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, appointment, "Appointment retrieved successfully"))
 })
 
+const getUserAppointmentDetails = asyncHandler(async (req, res) => {
+  const appointment = await Appointment.aggregate([
+    {
+      $match: {
+        $and: [{ user: req.user._id },{property: req.params.id} ]
+      }
+    },
+    {
+      $lookup: {
+        from: "properties",
+        localField: "property",
+        foreignField: "_id",
+        as: "property",
+        pipeline: [
+          {
+            $project: {
+              name: 1,
+              price: 1,
+              status: 1,
+              numOfReviews: 1,
+              ratings: 1,
+              user: 1,
+            }
+          }
+        ]
+      }
+    },
+    {
+      $addFields: {
+        property: {
+          $first: "$property",
+        },
+      },
+    }
+  ])
+
+if (!appointment) {
+    throw new ApiError(404, "Appointment not found");
+}
+
+return res.status(200).json(new ApiResponse(200, appointment[0], "Appointment retrieved successfully"))
+})
+
 
 const updateAppointmentDetails = asyncHandler(async (req, res) => {
     const appointment = await Appointment.findById(req.params.id).populate({
@@ -175,4 +218,4 @@ const deleteAppointment = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, {}, "Appointment deleted successfully"))
     
 })
-export { createAppointment, getAllUserAppointment, getAllAdminAppointments, getAppointmentDetails, updateAppointmentDetails, deleteAppointment };
+export { createAppointment, getAllUserAppointment, getAllAdminAppointments, getAppointmentDetails, updateAppointmentDetails, deleteAppointment,getUserAppointmentDetails };

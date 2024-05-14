@@ -9,10 +9,28 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Payment = () => {
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true
+    }
+    const { data } = await axios.get("/api/v1/payment/stripeapikey", config);
+		setStripeApiKey(data.data.stripeApiKey);
+  }
   
   const stripePromise = loadStripe(
-    "pk_test_51O2t3FSH6OcOxuhnnJDGpo3CDg2zuqJm5RC21EdPFwcy2ZJdlSfANKaCCSYJYZ4hSRMr6HnWU3H7iLznjHiIaAQS00JxvDUZvk"
+    stripeApiKey && stripeApiKey
   );
+
+  console.log(stripeApiKey)
+  useEffect(() => {
+    getStripeApiKey();
+  }, [])
+  
 
   // const options = {
   //   clientSecret:
