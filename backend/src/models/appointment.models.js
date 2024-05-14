@@ -13,6 +13,9 @@ const appointmentSchema = new Schema({
         type: Number,
         required: true
     },
+    message: {
+        type: String,
+    },
     date: {
         type: Date,
         required: true

@@ -5,7 +5,8 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const createAppointment = asyncHandler(async (req, res) => {
-  const { name, email, phone, date, property_id } = req.body;
+  const { name, email, phone, date, property_id , message = ''} = req.body;
+  console.log(req.body)
 
   if (!name || !email || !phone || !date || !property_id) {
     throw new ApiError(400, "All fields are required");
@@ -40,21 +41,40 @@ const createAppointment = asyncHandler(async (req, res) => {
     );
 });
 
-const getAllAppointment = asyncHandler(async (req, res) => {
-  const { self_appointment } = req.body;
-
-  let appointments = Appointment.find();
-
-    if (self_appointment) {
-        appointments =  await appointments.find({ user: req.user._id });
-  } else {
-    appointments = await appointments.find().populate({
-      path: "property",
-        match: { user: req.user._id },
-      select: 'name price status numOfReviews ratings user '
-    });
-  }
-
+const getAllUserAppointment = asyncHandler(async (req, res) => {
+     const  appointments = await Appointment.aggregate([
+        {
+          $match: {
+            user: req.user._id,
+          },
+        },
+        {
+          $lookup: {
+            from: "properties",
+            localField: "property",
+            foreignField: "_id",
+            as: "property",
+            pipeline: [
+              {
+                $project: {
+                  name: 1,
+                  price: 1,
+                  status: 1,
+                  numOfReviews: 1,
+                  ratings: 1,
+                  user: 1,
+                }
+              }
+            ]
+          }
+       }, {
+          $addFields: {
+           property: {
+              $first: '$property'
+            }
+          }
+        }
+      ]);
   if (!appointments) {
     throw new ApiError(400, "Appointment not found");
   }
@@ -65,6 +85,26 @@ const getAllAppointment = asyncHandler(async (req, res) => {
       new ApiResponse(200, appointments, "Appointment retrieved successfully")
     );
 });
+
+
+const getAllAdminAppointments = asyncHandler(async(req, res) => {
+  const appointments = await Appointment.find().populate({
+    path: "property",
+      match: { user: req.user._id },
+    select: 'name price status numOfReviews ratings user '
+  });
+
+  if (!appointments) {
+    throw new ApiError(400, "Appointment not found");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, appointments, "Appointment retrieved successfully")
+    );
+
+})
 
 const getAppointmentDetails = asyncHandler(async (req, res) => {
 
@@ -135,4 +175,4 @@ const deleteAppointment = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, {}, "Appointment deleted successfully"))
     
 })
-export { createAppointment, getAllAppointment, getAppointmentDetails, updateAppointmentDetails, deleteAppointment };
+export { createAppointment, getAllUserAppointment, getAllAdminAppointments, getAppointmentDetails, updateAppointmentDetails, deleteAppointment };

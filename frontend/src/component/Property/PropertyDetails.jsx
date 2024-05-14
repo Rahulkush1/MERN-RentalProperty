@@ -128,7 +128,7 @@ const PropertyDetails = () => {
   }, [dispatch, toast, success, error, isAuthenticated]);
 
   useEffect(() => {
-    dispatch(getAppointment(id));
+    // dispatch(getAppointment(id));
     dispatch(getBooking(id));
   }, [dispatch, id]);
 
@@ -218,11 +218,10 @@ const PropertyDetails = () => {
                       disabled={true}>
                       <LocalPhoneIcon className="mx-2 " /> Sold
                     </Button>
-                  ) : appointment &&
-                    appointment.attributes &&
-                    appointment.attributes.status !== "Rejected" ? (
-                    appointment.attributes &&
-                    appointment.attributes.status === "Pending" ? (
+                  ) : property.appointment &&
+                    property.appointment &&
+                    property.appointment.status !== "rejected" ? (
+                    property.appointment && property.appointment.status === "pending" ? (
                       <Button
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
@@ -387,11 +386,10 @@ const PropertyDetails = () => {
                     </Button>
                   </div>
                 </div>
-              ) : appointment &&
-                appointment.attributes &&
-                appointment.attributes.status !== "Rejected" ? (
-                appointment.attributes &&
-                appointment.attributes.status === "Pending" ? (
+              ) : property.appointment &&
+                property.appointment &&
+                property.appointment.status !== "rejected" ? (
+                property.appointment && property.appointment.status === "pending" ? (
                   <div
                     className="card border-primary mb-3"
                     style={{ maxWidth: "28rem" }}
