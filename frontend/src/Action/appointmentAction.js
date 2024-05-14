@@ -6,6 +6,8 @@ export const createAppointment = createAsyncThunk(
   "create/appointment",
   async (appointment, { rejectWithValue }) => {
     try {
+      console.log(appointment)
+      const {name, email, phone, property_id, date, message} = appointment
       const config = {
         headers: {
           Content_type: "application/json",
@@ -15,7 +17,7 @@ export const createAppointment = createAsyncThunk(
 
       const {data} = await axios.post(
         `${BASE_URL}appointment/create`,
-        { appointment },
+        { name, email, phone, property_id, date, message },
         config
       );
         console.log(data)
@@ -37,12 +39,12 @@ export const getAppointment = createAsyncThunk(
         const config = {
           headers: {
             Content_type: "application/json",
-            auth_token: localStorage.getItem("userToken"),
           },
+          withCredentials: true
         };
   
         const {data} = await axios.get(
-          `${BASE_URL}/users/appointments/get_property_appointment?property_id=${id}`,
+          `${BASE_URL}appointment/${id}`,
           config
         );
 
@@ -64,15 +66,15 @@ export const getAppointment = createAsyncThunk(
         const config = {
           headers: {
             Content_type: "application/json",
-            auth_token: localStorage.getItem("userToken"),
           },
+          withCredentials: true
         };
   
         const {data} = await axios.get(
-          `${BASE_URL}/users/appointments?self_appointment=true`,
+          `${BASE_URL}appointment/all`,
           config
         );
-
+          console.log(data)
         return data.data;
       } catch (error) {
         if (error.response && error.response.data.message) {

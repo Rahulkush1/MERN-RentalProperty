@@ -8,6 +8,7 @@ import { getAllAppointmentloggedUser } from "../../Action/appointmentAction";
 import { Link } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import Breadcrumb from "../Helper/Breadcrumb";
+import FormatDate from "../Helper/FormatDate";
 
 function Appointment() {
   const dispatch = useDispatch();
@@ -26,10 +27,10 @@ function Appointment() {
         (count += 1),
         {
           id: count,
-          name: appointment.attributes && appointment.attributes.name,
-          date: appointment.attributes && appointment.attributes.date,
-          status: appointment.attributes && appointment.attributes.status,
-          property: appointment.attributes && appointment.attributes.property,
+          name: appointment && appointment.name,
+          date: appointment && appointment.date && <FormatDate dateString={appointment.date} />,
+          status: appointment && appointment.status,
+          property: appointment && appointment.property,
         }
       )
     );
@@ -189,7 +190,7 @@ function Appointment() {
       sorter: (a, b) => a.property - b.property,
       sortDirections: ["descend", "ascend"],
       render: (property) => (
-        <Link to={`/properties/${property.id}`}>{property.name}</Link>
+        <Link to={`/property/${property._id}`}>{property.name}</Link>
       ),
     },
     {
@@ -204,9 +205,9 @@ function Appointment() {
         <Chip
           label={status}
           color={
-            (status === "Approved" && "success") ||
-            (status === "Rejected" && "error") ||
-            (status === "Pending" && "warning")
+            (status === "accepted" && "success") ||
+            (status === "rejected" && "error") ||
+            (status === "pending" && "warning")
           }
           variant="outlined"
         />

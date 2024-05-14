@@ -138,10 +138,21 @@ const getPropertyDetails = asyncHandler(async (req, res) => {
       },
     },
     {
+      $lookup: {
+        from: "appointments",
+        localField: "_id",
+        foreignField: "property",
+        as: "appointment",
+      }
+    },
+    {
       $addFields:{
           user:{
               $first: "$user"
-          }
+        },
+        appointment: {
+          $first: "$appointment"
+        }
       }
   },
     {
@@ -155,10 +166,10 @@ const getPropertyDetails = asyncHandler(async (req, res) => {
         images: 1,
         reviews: 1,
         user: 1,
+        appointment: 1
       },
     },
   ]);
-
   return res
     .status(200)
     .json(

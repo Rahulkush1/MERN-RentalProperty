@@ -8,9 +8,9 @@ const AppointmentForm = ({ data, id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [appointment, setAppointment] = useState({
-    name: data && data.full_name,
-    email: data && data.email,
-    phone: data && data.phone,
+    name: data.full_name,
+    email: data.email,
+    phone: data.phone_number,
     property_id: id,
   });
   const HadnleAppointment = (e) => {
