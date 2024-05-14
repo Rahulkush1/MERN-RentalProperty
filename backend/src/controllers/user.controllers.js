@@ -4,7 +4,13 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import sendmail from "../utils/sendEmail.js";
 import jwt from "jsonwebtoken";
-import crypto from "crypto";
+import crypto from "crypto"
+import dotenv from 'dotenv';
+import Stripe from 'stripe'
+dotenv.config({
+  path: './.env'
+});
+const stripe = new Stripe(process.env.STRIPE_SECRET)
 
 const generateAccessAndRefereshTokens = async (userId) => {
   try {
@@ -67,8 +73,20 @@ const registerUser = asyncHandler(async (req, res) => {
   const createdUser = await User.findById(user.id).select(
     "-password -refresh_token"
   );
+
+
   if (!createdUser) {
     throw new ApiError(500, "Somthing went wrong while registering user");
+  }
+
+  console.log(stripe.customers)
+  const customer = await stripe.customers.create({
+    email: createdUser.email,
+  })
+
+  if (customer) {
+    createdUser.customer = customer.id
+    createdUser.save({validateBeforeSave: false});
   }
 
   const token = await generateToken(createdUser._id);
