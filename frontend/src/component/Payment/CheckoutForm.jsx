@@ -48,15 +48,15 @@ const CheckoutForm = () => {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          auth_token: localStorage.getItem("userToken"),
         },
+        withCredentials: true
       };
       const { data } = await axios.post(
-        `${BASE_URL}/payment/process`,
+        `${BASE_URL}payment/process`,
         { amount: bookingInfo.totalPrice },
         config
       );
-      const client_secret = data.client_secret;
+      const client_secret = data.data.client_secret;
       if (!stripe || !elements) {
         // Stripe.js hasn't yet loaded.
         // Make sure to disable form submission until Stripe.js has loaded.
@@ -82,15 +82,16 @@ const CheckoutForm = () => {
         if (result.paymentIntent.status === "succeeded") {
           const booking = {
             property_id: id,
-            payment_attributes: {
-              payment_intent_id: result.paymentIntent.id,
-              user_id: userInfo && userInfo.id,
-              property_price: bookingInfo.amount,
-              tax_price: bookingInfo.tax,
-              total_price: bookingInfo.totalPrice,
-              payment_status: result.paymentIntent.status,
+            paymentInfo: {
+              id: result.paymentIntent.id,
+              status: result.paymentIntent.status
+
             },
-          };
+              propertyPrice: bookingInfo.amount,
+              BookingCharges: bookingInfo.charge,
+              total_price: bookingInfo.totalPrice,
+              status: result.paymentIntent.status,
+            }
           dispatch(createBooking(booking));
           navigate("/success");
         } else {
