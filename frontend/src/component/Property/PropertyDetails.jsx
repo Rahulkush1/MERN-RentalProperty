@@ -128,7 +128,7 @@ const PropertyDetails = () => {
   }, [dispatch, toast, success, error, isAuthenticated]);
 
   useEffect(() => {
-    // dispatch(getAppointment(id));
+    dispatch(getAppointment(id));
     dispatch(getBooking(id));
   }, [dispatch, id]);
 
@@ -218,10 +218,10 @@ const PropertyDetails = () => {
                       disabled={true}>
                       <LocalPhoneIcon className="mx-2 " /> Sold
                     </Button>
-                  ) : property.appointment &&
-                    property.appointment &&
-                    property.appointment.status !== "rejected" ? (
-                    property.appointment && property.appointment.status === "pending" ? (
+                  ) : appointment &&
+                    appointment &&
+                    appointment.status !== "rejected" ? (
+                    appointment && appointment.status === "pending" ? (
                       <Button
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
@@ -232,15 +232,16 @@ const PropertyDetails = () => {
                         <LocalPhoneIcon className="mx-2 " /> Meeting Scheduled
                       </Button>
                     ) : (
-                      <Button
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        data-bs-whatever="@getbootstrap"
-                        variant="contained"
-                        className="fw-bold text-center  floating">
-                        <LocalPhoneIcon className="mx-2 " /> Reserve Your Space
-                        Now
-                      </Button>
+                      <Link
+                        to={`confirm/booking/${property.price}`}
+                        className="text-decoration-none">
+                        <Button
+                          variant="contained"
+                          className="fw-bold text-center  floating">
+                          <LocalPhoneIcon className="mx-2 " /> Reserve Your
+                          Space Now
+                        </Button>
+                      </Link>
                     )
                   ) : (
                     <Button
@@ -386,10 +387,10 @@ const PropertyDetails = () => {
                     </Button>
                   </div>
                 </div>
-              ) : property.appointment &&
-                property.appointment &&
-                property.appointment.status !== "rejected" ? (
-                property.appointment && property.appointment.status === "pending" ? (
+              ) : appointment &&
+                appointment &&
+                appointment.status !== "rejected" ? (
+                appointment && appointment.status === "pending" ? (
                   <div
                     className="card border-primary mb-3"
                     style={{ maxWidth: "28rem" }}

@@ -89,7 +89,7 @@ const CheckoutForm = () => {
             },
               propertyPrice: bookingInfo.amount,
               BookingCharges: bookingInfo.charge,
-              total_price: bookingInfo.totalPrice,
+              totalPrice: bookingInfo.totalPrice,
               status: result.paymentIntent.status,
             }
           dispatch(createBooking(booking));

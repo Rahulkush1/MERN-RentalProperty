@@ -39,11 +39,11 @@ export const getAllBookings = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          auth_token: localStorage.getItem("userToken"),
         },
+        withCredentials: true,
       };
       const {data} = await axios.get(
-        `${BASE_URL}/bookings`,
+        `${BASE_URL}booking/user/all`,
         config
       );
       return data.data;

@@ -10,6 +10,7 @@ import Chip from "@mui/material/Chip";
 import { getAllBookings } from "../../Action/bookingAction";
 import Formatprice from "../Helper/FormatPrice";
 import "./Booking.css"
+import FormatDate from "../Helper/FormatDate";
 
 function Booking() {
   const dispatch = useDispatch();
@@ -28,10 +29,11 @@ function Booking() {
         (count += 1),
         {
           id: count,
-          price: booking.attributes && booking.attributes.payment.data.attributes.total_price,
-          status: booking.attributes && booking.attributes.payment.data.attributes.payment_status,
-          property: booking.attributes && booking.attributes.property,
-          paidAt: booking.attributes && booking.attributes.payment.data.attributes.created_at
+        price: booking && booking.totalPrice,
+          
+          status: booking && booking.paymentInfo.status,
+          property: booking && booking.property,
+          paidAt: booking &&  <FormatDate dateString={booking.paid_at} />
         }
       )
     );
@@ -171,7 +173,7 @@ function Booking() {
       sorter: (a, b) => a.property - b.property,
       sortDirections: ["descend", "ascend"],
       render: (property) => (
-        <Link to={`/properties/${property.id}`}>{property.name}</Link>
+        <Link to={`/property/${property._id}`}>{property.name}</Link>
       ),
     },
     {
@@ -214,6 +216,22 @@ function Booking() {
       key: "paidAt",
       with: "20%",
       ...getColumnSearchProps("paidAt"),
+    },
+    {
+      title: "Action",
+      dataIndex: "id",
+      key: "id",
+      with: "20%",
+      ...getColumnSearchProps("id"),
+      render: (id) => {
+        return (
+          <Link to={`/booking/${id}`}>
+            <Button type="primary" size="small">
+              View
+            </Button>
+          </Link>
+        );
+      }
     },
   ];
   return (
