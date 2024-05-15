@@ -55,7 +55,6 @@ export const fetchPropertyDetails = createAsyncThunk(
         `${BASE_URL}property/p/${id}`,
         config
       );
-      console.log(data.data)
       return data.data;
     } catch (error) {
       console.log(error);

@@ -74,7 +74,8 @@ const getAllUserAppointment = asyncHandler(async (req, res) => {
             }
           }
         }
-      ]);
+     ]);
+  
   if (!appointments) {
     throw new ApiError(400, "Appointment not found");
   }
@@ -124,7 +125,12 @@ const getUserAppointmentDetails = asyncHandler(async (req, res) => {
   const appointment = await Appointment.aggregate([
     {
       $match: {
-        $and: [{ user: req.user._id },{property: req.params.id} ]
+        $expr: {
+            $and: [
+              { $eq: ["$user", req.user._id] },
+              { $eq: ["$property", new mongoose.Types.ObjectId(req.params.id)] },
+            ],
+          },
       }
     },
     {

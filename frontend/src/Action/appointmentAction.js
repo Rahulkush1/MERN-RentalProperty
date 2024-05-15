@@ -44,10 +44,9 @@ export const getAppointment = createAsyncThunk(
         };
   
         const {data} = await axios.get(
-          `${BASE_URL}appointment/${id}`,
+          `${BASE_URL}appointment/user/${id}`,
           config
         );
-
         return data.data;
       } catch (error) {
         if (error.response && error.response.data.message) {
