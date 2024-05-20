@@ -1,12 +1,8 @@
-import { Elements, ElementsConsumer } from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import CheckoutForm from "./CheckoutForm";
-import { toast } from "react-toastify";
 import axios from "axios";
-import { BASE_URL } from "../../App";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const Payment = () => {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -31,71 +27,6 @@ const Payment = () => {
     getStripeApiKey();
   }, [])
   
-
-  // const options = {
-  //   clientSecret:
-  //     "pi_3OzIY7SH6OcOxuhn1JWHGSe4_secret_SPwACDx6XXvHLAuCjktCvqTZ4",
-  // };
-  const { userInfo } = useSelector((state) => state.user);
-  const { amount } = useParams();
-
-  // const [data, setData] = useState({
-  //   customer_id: userInfo.customer_id,
-  //   amount: amount,
-  // });
-  // let client_secret = null;
-  // const config = {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     auth_token: localStorage.getItem("userToken"),
-  //   },
-  // };
-  // axios
-  //   .post(`${BASE_URL}/payment/process`, { amount }, config)
-  //   .then((response) => {
-  //     client_secret = response.data.client_secret;
-  //   })
-  //   .catch((error) => {
-  //     toast.error(error, {
-  //       position: "top-center",
-  //       autoClose: 5000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: false,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "colored",
-  //     });
-  //   });
-  // try {
-  //   const config = {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       auth_token: localStorage.getItem("userToken"),
-  //     },
-  //   };
-  //   const resp =  axios.post(
-  //     `${BASE_URL}/payment/process`,
-  //     { amount },
-  //     config
-  //   );
-  //    client_secret = resp.data.client_secret
-  // } catch (error) {
-  //   toast.error(error, {
-  //     position: "top-center",
-  //     autoClose: 5000,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: false,
-  //     draggable: true,
-  //     progress: undefined,
-  //     theme: "colored",
-  //   });
-  // }
-
-  // const options = {
-  //   clientSecret: client_secret,
-  // };
   return (
     <>
         <Elements stripe={stripePromise} >

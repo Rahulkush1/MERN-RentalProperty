@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-// import CheckOutStep from "../Cart/CheckOutStep";
 import { useDispatch, useSelector } from "react-redux";
-// import MetaData from "../Layout/MetaData";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 import "./ConfirmBooking.css";
@@ -9,11 +7,10 @@ import { fetchPropertyDetails } from "../../Action/propertyAction";
 import Formatprice from "../Helper/FormatPrice";
 
 const ConfirmBooking = () => {
-  // const { shippingInfo, cartItems } = useSelector((state) => state.cart);use
   const dispatch = useDispatch();
   const { amount, id } = useParams();
   const { userInfo } = useSelector((state) => state.user);
-  const { property, loading } = useSelector((state) => state.properties);
+  const { property } = useSelector((state) => state.properties);
   const navigate = useNavigate();
 
   const charge = amount * 0.18;
@@ -38,8 +35,6 @@ const ConfirmBooking = () => {
 
   return (
     <Fragment>
-      {/* <MetaData title="Confirm booking" /> */}
-      {/* <CheckOutStep activeStep={1} /> */}
       <div className="confirmBookingPage grey">
         <div>
           <div className="confirmshippingArea">

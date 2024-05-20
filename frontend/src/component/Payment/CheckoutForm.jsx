@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 
 import {
   useStripe,
   useElements,
-  PaymentElement,
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
@@ -18,12 +17,10 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import EventIcon from "@mui/icons-material/Event";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { Typography } from "@mui/material";
-import payLoader from "./payLoader";
 import { createBooking } from "../../Action/bookingAction";
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const { amount } = useParams();
   const { id } = useParams();
   const bookingInfo = JSON.parse(sessionStorage.getItem("bookingInfo"));
 
@@ -37,7 +34,6 @@ const CheckoutForm = () => {
   });
   const paybtn = useRef(null);
 
-  // console.log(paybtn.current.disabled)
   const submitHandler = async (event) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
