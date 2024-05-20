@@ -12,7 +12,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Helper/Loader";
 import { fetchRecomendendProperty } from "../../Action/propertyAction";
-import { useHistory } from "react-router-dom";
 import {
   fetchCityByCountry,
   fetchCityByStateCountry,
